@@ -1,9 +1,14 @@
 #!/usr/bin/python3
-""" This module defines a Square class and initialise its size """
+"""
+This module defines a Square class and initialise its size
+"""
 
 
 class Square:
-    """ Square implementation """
+    """
+    Square implementation
+    """
+
     def __init__(self, size=0)
     if (type(size) is not int):
             raise TypeError("size must be an integer")
