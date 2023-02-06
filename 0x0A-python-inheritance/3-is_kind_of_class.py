@@ -5,6 +5,6 @@ module that contains is_kind_of_class function
 
 
 def is_kind_of_class(obj, a_class):
-    """returns True if the object is instance of, or object is an instance of 
+    """returns True if the object is instance of, or object is an instance of
     a class that inherited from, else, False."""
     return (isintance(obj, a_class))
