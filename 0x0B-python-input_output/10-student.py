@@ -6,8 +6,6 @@ module that contains a class called student
 
 class Student:
     """a class that defines student by first name, last name and age"""
-
-
 def __init__(self, first_name, last_name, age):
     """initializes student"""
     self.first_name = first_name
