@@ -9,6 +9,7 @@ class Student:
 
 
 def __init__(self, first_name, last_name, age):
+    """initializes student"""
     self.first_name = first name
     self.last_name = last name
     self.age = age
