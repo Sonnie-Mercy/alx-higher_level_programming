@@ -58,7 +58,7 @@ class Base:
         Args:
             - json_string: string to convert to list
         """
-        if json_string is None or json_string is "":
+        if json_string == None or json_string == "":
             return []
         return json.loads(json_string)
 
