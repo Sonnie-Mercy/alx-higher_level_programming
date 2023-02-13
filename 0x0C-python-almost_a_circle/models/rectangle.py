@@ -22,6 +22,13 @@ class Rectangle(base):
         self.x = x
         self.y = y
 
+    def __str__(self):
+        return "[Rectangle] ({:d}) {:d}/{:d} - {:d}/{:d}".format(self.id,
+                                                                 self.__x,
+                                                                 self.__y,
+                                                                 self.__width,
+                                                                 self.__height)
+
         @property
         """retrieves the width attribute"""
 
@@ -100,13 +107,6 @@ class Rectangle(base):
             for j in range(0, self.__width):
                 print("#", end="")
             print()
-
-    def __str__(self):
-        """Returns a string representation of a Rectangle instance."""
-
-        s = "[Rectangle] ({}) {}/{} - {}/{}".format(
-            self.id, self.__x, self.__y, self.__width, self.__height)
-        return s
 
     def update(self, *args, **kwargs):
         """Updates attributes of an instance.
