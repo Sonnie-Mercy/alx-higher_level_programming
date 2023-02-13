@@ -2,7 +2,6 @@
 """
 writing a class rectangle that inherits from base
 """
-import json
 from models.base import base
 
 
