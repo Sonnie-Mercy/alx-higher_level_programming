@@ -50,7 +50,7 @@ class Base:
             jstr = cls.to_json_string([o.to_dictionary() for o in list_objs])
         filename = cls.__name__ + ".json"
         with open(filename, 'w') as f:
-                f.write(jstr)
+            f.write(jstr)
 
     @staticmethod
     def from_json_string(json_string):
@@ -58,13 +58,9 @@ class Base:
         Args:
             - json_string: string to convert to list
         """
-
-        l = []
-        if json_string is not None and json_string != '':
-            if type(json_string) != str:
-                raise TypeError("json_string must be a string")
-            l = json.loads(json_string)
-        return l
+        if json_string is None or json_string is "":
+            return []
+        return json.loads(json_string)
 
     @classmethod
     def create(cls, **dictionary):
@@ -83,17 +79,15 @@ class Base:
     @classmethod
     def load_from_file(cls):
         """Returns a list of instances."""
-
-        filename = cls.__name__ + ".json"
-        l = []
-        list_dicts = []
-        if os.path.exists(filename):
-            with open(filename, 'r') as f:
-                s = f.read()
-                list_dicts = cls.from_json_string(s)
-                for d in list_dicts:
-                    l.append(cls.create(**d))
-        return l
+        try:
+            with open(cls.__name__ + ".json", 'r', encoding="UTF-8") as myfile:
+                dict_list = cls.from_json_string(myfile.read())
+                instance_list = []
+                for obj in dict_list:
+                    instance_list.append(cls.create(**obj))
+                return instance_list
+        except FileNotFoundError:
+            return []
 
     @classmethod
     def save_to_file_csv(cls, list_objs):
@@ -127,7 +121,6 @@ class Base:
         """
 
         filename = cls.__name__ + ".csv"
-        l = []
         if os.path.exists(filename):
             with open(filename, 'r') as f:
                 reader = csv.reader(f, delimiter=',')
@@ -141,8 +134,7 @@ class Base:
                         for j, e in enumerate(row):
                             if e:
                                 setattr(i, fields[j], int(e))
-                        l.append(i)
-        return l
+                return []
 
     @staticmethod
     def draw(list_rectangles, list_squares):
