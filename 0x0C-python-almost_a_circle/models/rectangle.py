@@ -1,12 +1,13 @@
 #!/usr/bin/python3
+"""Module rectangle.
+Create a Rectangle class, inheriting from Base.
 """
-writing a class rectangle that inherits from base
-"""
-from models.base import base
+import json
+from models.base import Base
 
 
-class Rectangle(base):
-    """a class rectangle
+class Rectangle(Base):
+    """Class describing a rectangle.
     Public instance methods:
         - area()
         - display()
@@ -16,40 +17,46 @@ class Rectangle(base):
     """
 
     def __init__(self, width, height, x=0, y=0, id=None):
-        super().__init__(id)
+        """Initializes a Rectangle instance.
+        Args:
+            - __width: width
+            - __height: height
+            - __x: position
+            - __y: position
+            - id: id
+        """
+
         self.width = width
         self.height = height
         self.x = x
         self.y = y
+        super().__init__(id)
 
-    def __str__(self):
-        return "[Rectangle] ({:d}) {:d}/{:d} - {:d}/{:d}".format(self.id,
-                                                                 self.__x,
-                                                                 self.__y,
-                                                                 self.__width,
-                                                                 self.__height)
-
-        @property
-        """retrieves the width attribute"""
+    @property
+    def width(self):
+        """Retrieves the width attribute."""
 
         return self.__width
 
-        @property
-        """retrieves the height attribute"""
+    @property
+    def height(self):
+        """Retrieves the height attribute."""
 
         return self.__height
 
-        @property
-        """retrieves the x attribute"""
+    @property
+    def x(self):
+        """Retrieves the x attribute."""
 
         return self.__x
 
-        @property
-        """retrieves the y attribute"""
+    @property
+    def y(self):
+        """Retrieves the y attribute."""
 
         return self.__y
 
-        @width.setter
+    @width.setter
     def width(self, value):
         """Sets the width attribute."""
 
@@ -59,7 +66,7 @@ class Rectangle(base):
             raise ValueError("width must be > 0")
         self.__width = value
 
-        @height.setter
+    @height.setter
     def height(self, value):
         """Sets the height attribute."""
 
@@ -69,24 +76,24 @@ class Rectangle(base):
             raise ValueError("height must be > 0")
         self.__height = value
 
-        @x.setter
+    @x.setter
     def x(self, value):
         """Sets the x attribute."""
 
         if type(value) is not int:
             raise TypeError("x must be an integer")
-        if value <= 0:
-            raise ValueError("x must be > 0")
+        if value < 0:
+            raise ValueError("x must be >= 0")
         self.__x = value
 
-        @y.setter
+    @y.setter
     def y(self, value):
         """Sets the y attribute."""
 
         if type(value) is not int:
             raise TypeError("y must be an integer")
-        if value <= 0:
-            raise ValueError("y must be > 0")
+        if value < 0:
+            raise ValueError("y must be >= 0")
         self.__y = value
 
     def area(self):
@@ -107,6 +114,13 @@ class Rectangle(base):
             for j in range(0, self.__width):
                 print("#", end="")
             print()
+
+    def __str__(self):
+        """Returns a string representation of a Rectangle instance."""
+
+        s = "[Rectangle] ({}) {}/{} - {}/{}".format(
+            self.id, self.__x, self.__y, self.__width, self.__height)
+        return s
 
     def update(self, *args, **kwargs):
         """Updates attributes of an instance.
