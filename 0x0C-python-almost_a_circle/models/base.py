@@ -1,15 +1,28 @@
 #!/usr/bin/python3
+"""Module base.
+Defines a Base class for other classes in the project.
 """
-Base class
-"""
+
 import json
+import os
+import csv
 
 
 class Base:
-    """the base of all other classes for this project"""
+    """Class with:
+    Private class attribute: __nb_objects
+    """
+
     __nb_objects = 0
 
     def __init__(self, id=None):
+        """Initialization of a Base instance.
+        Args:
+            - id: id of the instance
+        """
+
+        if type(id) != int and id is not None:
+            raise TypeError("id must be an integer")
         if id is not None:
             self.id = id
         else:
@@ -50,7 +63,7 @@ class Base:
             jstr = cls.to_json_string([o.to_dictionary() for o in list_objs])
         filename = cls.__name__ + ".json"
         with open(filename, 'w') as f:
-            f.write(jstr)
+                f.write(jstr)
 
     @staticmethod
     def from_json_string(json_string):
@@ -58,9 +71,13 @@ class Base:
         Args:
             - json_string: string to convert to list
         """
-        if json_string == None or json_string == "":
-            return []
-        return json.loads(json_string)
+
+        l = []
+        if json_string is not None and json_string != '':
+            if type(json_string) != str:
+                raise TypeError("json_string must be a string")
+            l = json.loads(json_string)
+        return l
 
     @classmethod
     def create(cls, **dictionary):
@@ -79,15 +96,17 @@ class Base:
     @classmethod
     def load_from_file(cls):
         """Returns a list of instances."""
-        try:
-            with open(cls.__name__ + ".json", 'r', encoding="UTF-8") as myfile:
-                dict_list = cls.from_json_string(myfile.read())
-                instance_list = []
-                for obj in dict_list:
-                    instance_list.append(cls.create(**obj))
-                return instance_list
-        except FileNotFoundError:
-            return []
+
+        filename = cls.__name__ + ".json"
+        l = []
+        list_dicts = []
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                s = f.read()
+                list_dicts = cls.from_json_string(s)
+                for d in list_dicts:
+                    l.append(cls.create(**d))
+        return l
 
     @classmethod
     def save_to_file_csv(cls, list_objs):
@@ -121,6 +140,7 @@ class Base:
         """
 
         filename = cls.__name__ + ".csv"
+        l = []
         if os.path.exists(filename):
             with open(filename, 'r') as f:
                 reader = csv.reader(f, delimiter=',')
@@ -134,7 +154,8 @@ class Base:
                         for j, e in enumerate(row):
                             if e:
                                 setattr(i, fields[j], int(e))
-                return []
+                        l.append(i)
+        return l
 
     @staticmethod
     def draw(list_rectangles, list_squares):
