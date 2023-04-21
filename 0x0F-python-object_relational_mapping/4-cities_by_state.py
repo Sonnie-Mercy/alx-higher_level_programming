@@ -20,9 +20,8 @@ if __name__ == "__main__":
     # Create a cursor object
     cursor = db.cursor()
 
-    # Prepare a query
-    query = "SELECT * FROM cities ORDER BY id ASC"
-    cursor.execute(query)
+    # Prepare a query and execute
+    cursor.execute("SELECT * FROM cities ORDER BY id ASC")
 
     # Fetch the results of the query
     results = cursor.fetchall()
