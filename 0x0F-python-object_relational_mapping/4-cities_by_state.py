@@ -21,7 +21,11 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     # Prepare a query and execute
-    cursor.execute("SELECT * FROM cities ORDER BY id ASC")
+    cursor.execute("SELECT `cursor`.`id`, `cursor`.`name`, `s`.`name` \
+                 FROM `cities` as `cursor` \
+                INNER JOIN `states` as `s` \
+                   ON `cursor`.`state_id` = `s`.`id` \
+                ORDER BY `cursor`.`id`")
 
     # Fetch the results of the query
     results = cursor.fetchall()
