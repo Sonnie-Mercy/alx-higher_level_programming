@@ -3,22 +3,10 @@
 
 
 def find_peak(list_of_integers):
-    n = len(list_of_integers)
-    first = 0
-    last = n - 1
-
-    if n == 0:
-        return None
-    if n == 1:
-        return list_of_integers[0]
-    elif n == 2:
-        return max(list_of_integers)
+    """peak finding function"""
+    n = list_of_integers
+    if n:
+        n.sort()
+        return n[-1]
     else:
-        mid = n // 2
-        if list_of_integers[mid] >= list_of_integers[mid-1] and \
-                list_of_integers[mid] >= list_of_integers[mid+2]:
-            return list_of_integers[mid]
-        elif list_of_integers[mid] < list_of_integers[mid-1]:
-            return find_peak(list_of_integers[:mid])
-        else:
-            return find_peak(list_of_integers[mid+1:])
+        return None
