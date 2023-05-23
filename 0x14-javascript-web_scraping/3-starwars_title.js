@@ -2,16 +2,10 @@
 
 const request = require('request');
 const apiUrl = 'https://swapi-api.hbtn.io/api/films/' + process.argv[2];
-request.get(apiUrl, function (error, response, body) {
+request(apiUrl, function (error, response, body) {
   if (error) {
     console.error(error);
-    return;
-  }
-
-  if (response.statusCode === 200) {
-    const movieData = JSON.parse(body);
-    console.log('Title:', movieData.title);
   } else {
-    console.error('Unable to fetch movie data.');
+    console.log(JSON.parse(body).title);
   }
 });
