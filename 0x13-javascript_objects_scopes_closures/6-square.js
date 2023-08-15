@@ -11,4 +11,4 @@ class Square extends newSquare {
     }
   }
 }
-module.expots = Square;
+module.exports = Square;
