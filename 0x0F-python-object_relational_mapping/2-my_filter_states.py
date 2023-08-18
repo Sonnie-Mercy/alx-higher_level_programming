@@ -6,12 +6,12 @@ import sys
 import MySQLdb
 
 
-def display_states(username, password, dtabase, search_name):
+def display_states(username, password, database, search_name):
     """
     displays values where name matches argument"""
     db = MySQLdb.connect(
             host="localhost",
-            user="username",
+            user=username,
             passwd=password,
             db=database,
             port=3306
@@ -21,7 +21,7 @@ def display_states(username, password, dtabase, search_name):
     query = "SELECT * FROM states where name LIKE %s ORDER BY states.id ASC"
     cursor.execute(query, (search_name,))
 
-    rows = cursor.fetchall
+    rows = cursor.fetchall()
     for row in rows:
         print(row)
 
