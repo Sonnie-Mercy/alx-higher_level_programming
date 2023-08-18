@@ -22,13 +22,14 @@ def list_nstates(username, password, database):
 
     cursor = db.cursor()
     cursor.execute(
-            "SELECT * FROM states WHERE name like 'N%' ORDER BY states.id"
+            "SELECT * FROM states ORDER BY states.id ASC;"
             )
     rows = cursor.fetchall()
     for row in rows:
-        print(row)
+        if row[1][0] == 'N':
+            print(row)
 
-    cursor.closse()
+    cursor.close()
     db.close()
 
 
