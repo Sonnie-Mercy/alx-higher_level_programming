@@ -9,4 +9,3 @@ if __name__ == "__main__":
 
     response = requests.post(url, data={'email': email})
     print("Your email is:", email)
-    print(response.text)
