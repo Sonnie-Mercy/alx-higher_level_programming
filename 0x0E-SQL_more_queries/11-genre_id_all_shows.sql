@@ -1,6 +1,6 @@
 -- Write a script that lists all shows contained in the database hbtn_0d_tvshows.
-SELECT show.`title`, genre.`genre_id`
-  FROM `tv_shows` AS show
-       LEFT JOIN `tv_show_genres` AS genre
-       ON show.`id` = genre.`show_id`
- ORDER BY show.`title`, genre.`genre_id`;
+SELECT s.`title`, genre.`genre_id`
+  FROM `tv_shows` AS s
+       LEFT JOIN `tv_show_genres` AS g
+       ON s.`id` = g.`show_id`
+ ORDER BY s.`title`, g.`genre_id`;
